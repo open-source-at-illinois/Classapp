@@ -17,34 +17,64 @@
 /*express-session: Creates a session that allows the user to login and do all the fun things. 
 *does not inhearently track the user need to assign identifiers uninquly for each new user if you want to track
 */
-const express = require('express')
-const express = require('express-session')
-
-const app = express()
-app.use(session({
-    'secret': 'authPassword212'
-}))
-
-// app.get('/', (req, res, next) => {
-//     // req.session 
-// }
 
 
 
-app.get('/', function(req, res, next) {
-    if (req.session.views) {
-      req.session.views++
-      res.setHeader('Content-Type', 'text/html')
-      res.write('<p>views: ' + req.session.views + '</p>')
-      res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-      res.end()
-    } else {
-      req.session.views = 1
-      res.end('welcome to the session demo. refresh!')
+
+
+/*account creation: need database set up before 
+*
+*
+*/ 
+
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
+
+module.exports = {
+    register: async(req, res)=>{
+        // req.body.netID
+        // req.body.password
+        const {netID, password} = req.body;
+        
+        const salt = bcrypt.genSaltSync(10);
+        const encryptedPassword = bcrypt.hashSync(password, salt);
+
+        const newUser = new User({
+            netID: netID,
+            password: encryptedPassword,
+        });
+
+        await newUser.save();
+        console.log('user was saved');
+
+        res.sendStatus(200);
+        // password => bcrypted password    
+
+        //{netid:netID,
+        // password:bcrypted password}
+    },
+};
+
+//Login: 
+
+module.exports = {
+    login: async(req, res) => {
+        const {netID, password} = req.body;
+        const user = await User.findOne({netID: netID});
+        if(!user){
+            return res.status(400).send('Incorrect email');
+        }
+        console.log("Email found");
+        const passMatch = await bcrypt.compareSync(req.body.password, user.password);
+        if(!passMatch){
+            return res.status(400).send('Incorrect password');
+        }
+        console.log("password accepted");
+        res.sendStatus(200);
     }
-  })
+};
 
-//login: 
+
 
 
 
@@ -56,3 +86,7 @@ app.get('/', function(req, res, next) {
 
 //logout: 
 
+// {
+//     "netID": "pg12",
+//     "password":"password"
+// }
