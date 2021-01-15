@@ -2,10 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NativeRouter } from 'react-router-native';
-import routes from './routes';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
-import { Lato_400Regular } from '@expo-google-fonts/lato'
+import { Lato_400Regular } from '@expo-google-fonts/lato';
+
+import routes from './routes';
 
 export default function App() {
     let [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
