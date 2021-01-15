@@ -30,10 +30,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-module.exports = {
-    register: async(req, res)=>{
-        // req.body.netID
-        // req.body.password
+exports.register = async(req, res)=> { 
         const {netID, password} = req.body;
         
         const salt = bcrypt.genSaltSync(10);
@@ -45,21 +42,18 @@ module.exports = {
         });
 
         await newUser.save();
-        console.log('user was saved');
+        console.log("user was saved");
 
         res.sendStatus(200);
-        // password => bcrypted password    
-
-        //{netid:netID,
-        // password:bcrypted password}
-    },
+    // },
 };
 
 //Login: 
 
-module.exports = {
-    login: async(req, res) => {
+
+exports.login = async(req, res) => {
         const {netID, password} = req.body;
+        const {session} = req;
         const user = await User.findOne({netID: netID});
         if(!user){
             return res.status(400).send('Incorrect email');
@@ -69,24 +63,38 @@ module.exports = {
         if(!passMatch){
             return res.status(400).send('Incorrect password');
         }
+        res.cookie("userData", user.netID, {maxAge: 360000});
         console.log("password accepted");
+        session.user = user;
         res.sendStatus(200);
+};
+
+exports.getUser = async(req, res) => {
+    console.log('hit');
+    const { user } = req.session;
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.sendStatus(401);
     }
 };
 
 
 
 
+// /** checks to see if the user is still logged in or maybe for a forgot password or if someone was trying to make a doublicate account or D all of the above or E none of the above
+//  *
+//  */
+// //getUser:
 
 
-//getUser:
 
 
-
-
-//logout: 
-
-// {
-//     "netID": "pg12",
-//     "password":"password"
-// }
+// //logout: 
+exports.logout = async(req, res) => {
+        req.session.destroy();
+        res.clearCookie(userData);
+        console.log("user logged out");
+        res.sendStatus(200);
+    // }
+};

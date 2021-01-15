@@ -1,32 +1,28 @@
 // // // // MODULES // // // //
 
 require('dotenv').config();
-
 const express = require('express');
-
-// Costa added
 const session = require('express-session');
-
 const {SERVER_PORT, SESSION_SECRET} = process.env;
-
 const app = express();
-
 const mongoose = require('mongoose'); 
+const mongoStore = require('connect-mongo')(session);
+
+//** don't know if this is needed but the tutorial has it so it goes in 
+const cookieParser = require('cookie-parser');
+
 
 // // // // MIDDLEWARES // // // //
+/** middleware: what connects the user and the server */
 //middlewares are excuted between request and result 
-
 app.use(express.json());
-//Costa Added
+app.use(cookieParser()); 
 //unique string as a password parameter 
 app.use(session ({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 3600000 }
 }));
-
-
 
 // // // // CONTROLLERS // // // //
 
@@ -44,12 +40,12 @@ app.listen(SERVER_PORT,()=>{
     });
 });
 
-
-// app.post('/auth/register', ac.register);
+app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login);
+app.post('/auth/logout', ac.logout);
+app.get('/auth/getUser', ac.getUser);
 /* Example code for how to talk to authController and how to get responses 
 * Does nothing besides printing the info from the printSomething in authController
-* Costa Added
 */
 // app.get(`/`, ac.printSomething);
 // console.log("main page"); 
