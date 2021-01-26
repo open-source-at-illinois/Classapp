@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
+import CommonAppBar from './CommonAppBar';
 
 const Apps = () => {
     return(
-        <View>
+        <View style={style.bg}>
+            <CommonAppBar />
             <Text>
                 This is the Apps Screen
             </Text>
@@ -16,3 +18,10 @@ const Apps = () => {
 }
 
 export default Apps;
+
+const style = StyleSheet.create({
+    bg: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+    }
+});

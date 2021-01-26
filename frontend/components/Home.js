@@ -8,8 +8,8 @@ const Home = () => {
             <Text>
                 This is the Home Screen
             </Text>
-            <Link to="/auth">
-                <Text>Auth</Text>
+            <Link to="/apps">
+                <Text>Apps</Text>
             </Link>
         </View>
     );
