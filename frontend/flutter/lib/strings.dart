@@ -1,0 +1,6 @@
+class Strings {
+  static const String lorem =
+      '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt lobortis sodales. In est erat, vehicula in blandit a, commodo ac nibh. Cras nec scelerisque nibh. Aliquam accumsan, tortor et vestibulum varius, ipsum enim feugiat quam, eget mattis nisi sem ut velit. Integer tempus nisi magna, id sagittis felis laoreet ut. Ut maximus gravida velit commodo posuere. Mauris tincidunt pellentesque eros eget bibendum. Quisque commodo dui porttitor tincidunt ornare. Vestibulum venenatis mi fringilla, egestas libero vel, pharetra est. Aliquam a ipsum ante. Nullam nec sodales dolor.
+
+Phasellus non est odio. Nullam mattis placerat risus, ac accumsan ligula suscipit ut. Nullam sollicitudin nisi nibh, ac malesuada sapien fermentum eu. In dictum, velit ut lacinia tincidunt, velit sapien porttitor dui, a porta neque sapien eget eros. Suspendisse vitae orci diam. Suspendisse et nunc sed lectus luctus elementum. Donec et ligula a eros molestie rutrum et eget magna. Aenean eleifend dapibus ullamcorper. Ut in eros non ligula semper consequat et id est. Suspendisse volutpat leo nec sagittis porttitor. Donec nec consequat tortor, pulvinar euismod urna. Sed molestie dictum libero.''';
+}
