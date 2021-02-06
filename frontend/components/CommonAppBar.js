@@ -1,22 +1,18 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const CommonAppBar = () => (
- <Appbar style={styles.bottom}>
-   <Appbar.BackAction
-     onPress={() => console.log('Pressed back')}
-    />
-    <Appbar.Content title="Applications"/>
-  </Appbar>
- );
+const CommonAppBar = (props) => {
+    const insets = useSafeAreaInsets();
+    return (
+        <Appbar style={{
+                marginTop: insets.top,
+                backgroundColor: '#13294b',
+            }}>
+            <Appbar.Action onPress={() => console.log('Pressed ' + props.title)} icon="menu"/>
+            <Appbar.Content title={props.title}/>
+        </Appbar>
+    );
+}
 
 export default CommonAppBar;
-
-const styles = StyleSheet.create({
-  bottom: {
-      width: 432,
-      backgroundColor: '#13294b',
-      justifyContent: 'flex-start'
-  },
-});

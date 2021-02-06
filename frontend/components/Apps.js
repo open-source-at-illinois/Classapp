@@ -6,7 +6,7 @@ import CommonAppBar from './CommonAppBar';
 const Apps = () => {
     return(
         <View style={style.bg}>
-            <CommonAppBar />
+            <CommonAppBar title="Applications"/>
             <Text>
                 This is the Apps Screen
             </Text>
